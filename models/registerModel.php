@@ -1,4 +1,5 @@
 <?php
+include_once("functions/dbAdapter.php");
 
 class RegisterModel {
 
@@ -11,18 +12,7 @@ class RegisterModel {
     // Establishing DB connection in constructor
     public function __construct()
     {
-        $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
-        $this->dbName = "inet_polling_system";
-
-        // Creating connection
-        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbName);
-
-        // Check connection
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
-        }
+        $this->connection = connect();
     }
 
 
@@ -40,18 +30,6 @@ class RegisterModel {
             $first_name = $_REQUEST['first_name'];
             $last_name = $_REQUEST['last_name'];
             $email = $_REQUEST['email'];
-
-            
-
-            // Checking if email and username are taken
-            // if ($this->checkEmail($email)) {
-            //     echo "email taken";
-            //     return false;
-            // }
-            // if ($this->checkUsername($username)) {
-            //     echo "username taken";
-            //     return false;
-            // }
 
             // Creating user in db
             $sql = "INSERT INTO user (first_name, last_name, email) VALUES ('$first_name', '$last_name', '$email')";

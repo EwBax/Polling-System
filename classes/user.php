@@ -2,15 +2,15 @@
 
 class User {
 
-    public $user_id;
+    public $userID;
     public $username;
     public $firstName;
     public $lastName;
     public $email;
     public $isAdmin;
 
-    public function __construct($user_id, $firstName, $lastName, $email, $username, $isAdmin) {
-        $this->user_id = $user_id;
+    public function __construct($userID, $firstName, $lastName, $email, $username, $isAdmin) {
+        $this->userID = $userID;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;

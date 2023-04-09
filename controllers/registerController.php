@@ -13,8 +13,7 @@ class RegisterController {
         $result = $this->model->register();
 
         if ($result) {
-            echo "true result";
-            header('Location:index.php');
+            header('Location: ./');
         }
     }
 

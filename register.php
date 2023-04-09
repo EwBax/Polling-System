@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
         <br>
         <button type="submit" name="register" id="register">Register</button>
-        <button onclick="window.location.href = 'index.php'">Back to Login</button>
+        <button onclick="window.location.href = './'">Back to Login</button>
     </form>
 
 </body>

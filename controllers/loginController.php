@@ -14,7 +14,7 @@ class LoginController {
         $result = $this->model->getlogin();
 
         if ($result) {
-            header("Location: user/userPanel.php");
+            header("Location: panel");
 
         } else {;
             include 'views/login.php';

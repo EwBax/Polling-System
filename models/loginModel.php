@@ -1,5 +1,6 @@
 <?php
 require_once("classes/user.php");
+require_once("functions/dbAdapter.php");
 
 class LoginModel {
 
@@ -7,18 +8,7 @@ class LoginModel {
         
         if (isset($_REQUEST['username']) && isset($_REQUEST['password']) ) {
             
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbName = "inet_polling_system";
-
-            // creating connection
-            $connection = new mysqli($servername, $username, $password, $dbName);
-
-            // Check connection
-            if ($connection->connect_error) {
-                die("Connection failed: " . $connection->connect_error);
-            }
+            $connection = connect();
 
             $sql = "SELECT username, password FROM login_credential WHERE username='" . $_REQUEST['username'] . "' AND password='" . $_REQUEST['password'] . "'";
             $result = $connection->query($sql);
@@ -35,8 +25,8 @@ class LoginModel {
                 $user = new User($userData[0], $userData[1], $userData[2], $userData[3], $userData[4], $userData[5]);
                 $_SESSION["user"] = serialize($user);
 
-                // Creating session variable to represent being logged in
-                $_SESSION["logged_in"] = true;
+                // Creating session variable to store when we logged in
+                $_SESSION["last_activity"] = time();
 
                 return true;
             } else {
