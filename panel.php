@@ -8,6 +8,7 @@ if (!isset($_SESSION["last_activity"]) || time() - $_SESSION["last_activity"] > 
     header("Location: ./");
 }
 
+$_SESSION["last-activity"] = time();
 $controller = new PanelController();
 
 ?>

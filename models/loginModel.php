@@ -19,6 +19,9 @@ class LoginModel {
                 // Collecting user data from db
                 $sql = "SELECT USER.user_id, first_name, last_name, email, username, is_admin FROM USER INNER JOIN login_credential ON USER.user_id=login_credential.user_id WHERE username='$_REQUEST[username]'";
                 $result = $connection->query($sql);
+
+                $connection->close();
+
                 $userData = $result->fetch_array();
 
                 // Creating user object and storing in session

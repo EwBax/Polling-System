@@ -19,13 +19,13 @@ function test_input($data) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Validating first and last name
-    $firstName = test_input($_POST["first_name"]);
+    $firstName = ucfirst(test_input($_POST["first_name"]));
     if (!preg_match("/^[a-zA-Z]{1,20}$/",$firstName)) {
         $firstNameErr = "Only letters allowed. Name must be between 1 and 20 characters long.";
         $valid = false;
     }
 
-    $lastName = test_input($_POST["last_name"]);
+    $lastName = ucfirst(test_input($_POST["last_name"]));
     if (!preg_match("/^[a-zA-Z]{1,20}$/",$lastName)) {
         $lastNameErr = "Only letters allowed. Name must be between 1 and 20 characters long.";
         $valid = false;
