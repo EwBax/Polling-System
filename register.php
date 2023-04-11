@@ -1,6 +1,7 @@
 <?php
 
 require_once("controllers/registerController.php");
+include_once("functions/validation.php");
 $controller = new RegisterController();
 
 // Code from here https://www.w3schools.com/php/php_form_url_email.asp
@@ -9,24 +10,17 @@ $firstNameErr = $lastNameErr = $emailErr = $usernameErr = $passwordErr = $confir
 $firstName = $lastName = $email = $username = $password = $confirmPassword = "";
 $valid = true;
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Validating first and last name
     $firstName = ucfirst(test_input($_POST["first_name"]));
-    if (!preg_match("/^[a-zA-Z]{1,20}$/",$firstName)) {
+    if (!validateName($firstName)) {
         $firstNameErr = "Only letters allowed. Name must be between 1 and 20 characters long.";
         $valid = false;
     }
 
     $lastName = ucfirst(test_input($_POST["last_name"]));
-    if (!preg_match("/^[a-zA-Z]{1,20}$/",$lastName)) {
+    if (!validateName($lastName)) {
         $lastNameErr = "Only letters allowed. Name must be between 1 and 20 characters long.";
         $valid = false;
     }
@@ -46,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   
     $username = test_input($_POST['username']);
-    if (!preg_match("/^[a-zA-Z\d]{4,20}$/", $username)) {
+    if (!validateName($username)) {
         $usernameErr = "Invalid username. Must be between 4-20 characters long, and only contain letters and numbers.";
         $valid = false;
     }

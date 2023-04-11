@@ -4,7 +4,7 @@ require_once("functions/signOut.php");
 session_start();
 
 // Checking if logged in and if it has been a minute since last activity
-if (!isset($_SESSION["last_activity"]) || time() - $_SESSION["last_activity"] > 1800) {
+if (!isset($_SESSION["last-activity"]) || time() - $_SESSION["last-activity"] > 1800) {
     header("Location: ./");
 }
 

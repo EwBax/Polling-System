@@ -6,8 +6,8 @@ session_start();
 require_once("controllers/loginController.php");
 $loginController = new LoginController();
 
-if (isset($_SESSION["last_activity"])) {
-    if ((time() - $_SESSION["last_activity"] < 1800)) {
+if (isset($_SESSION["last-activity"])) {
+    if ((time() - $_SESSION["last-activity"] < 1800)) {
         header("Location: panel");
     }
 } 

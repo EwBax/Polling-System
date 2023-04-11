@@ -111,6 +111,81 @@ class PanelModel {
         return $result->fetch_all();
     }
 
+    public function searchForCandidate($firstName, $lastName) {
+
+        $connection = connect();
+
+        $sql = "SELECT * FROM candidate WHERE first_name='$firstName' AND last_name='$lastName';";
+        $result = $connection->query($sql);
+
+        return $result->num_rows > 0;
+
+
+    }
+
+    public function removeCandidate($firstName, $lastName) {
+
+        $connection = connect();
+
+        $sql = "DELETE FROM candidate WHERE first_name='$firstName' AND last_name='$lastName';";
+        $result = $connection->query($sql);
+
+        $connection->close();
+
+        return $result;
+
+    }
+
+    public function searchForUser($username) {
+
+        $connection = connect();
+
+        $sql = "SELECT * FROM login_credential WHERE username='$username';";
+        $result = $connection->query($sql);
+
+        $connection->close();
+
+        return $result->num_rows > 0;
+
+    }
+
+    public function getUserDetails($username) {
+
+        $connection = connect();
+
+        // Query to get user details including whether they are an admin and have voted
+        $sql = "SELECT first_name, last_name, is_admin, candidate_id, user.user_id FROM user INNER JOIN login_credential ON user.user_id=login_credential.user_id LEFT JOIN vote ON user.user_id=vote.user_id WHERE username='$username';";
+        $result = $connection->query($sql);
+
+        $connection->close();
+
+        return $result->fetch_array();
+
+    }
+
+    public function updateUserDetails($firstName, $lastName, $username, $isAdmin, $userID) {
+        $connection = connect();
+
+        // updating the user and login_credentials tables
+        $sql = "UPDATE user SET first_name='$firstName', last_name='$lastName' WHERE user_id='$userID'; UPDATE login_credential SET username='$username', is_admin='$isAdmin' WHERE user_id='$userID';";
+        $result = $connection->multi_query($sql);
+
+        $connection->close();
+
+        return $result;
+    }
+
+    public function deleteUserVote($userID) {
+        $connection = connect();
+
+        $sql = "DELETE FROM vote WHERE user_id='$userID'";
+        $result = $connection->query($sql);
+
+        $connection->close();
+
+        return $result;
+    }
+
 }
 
 ?>

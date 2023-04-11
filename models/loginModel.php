@@ -29,7 +29,7 @@ class LoginModel {
                 $_SESSION["user"] = serialize($user);
 
                 // Creating session variable to store when we logged in
-                $_SESSION["last_activity"] = time();
+                $_SESSION["last-activity"] = time();
 
                 return true;
             } else {
